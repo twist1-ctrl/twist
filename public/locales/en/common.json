@@ -1,0 +1,22 @@
+{
+  "home": {
+    "title": "Join Our Mailing List",
+    "subtitle": "Stay updated with fresh content",
+    "emailPlaceholder": "Enter your email",
+    "submit": "Subscribe",
+    "loading": "Loading..."
+  },
+  "navigation": {
+    "signup": "Signup",
+    "packages": "Advertising Packages",
+    "posts": "Posts"
+  },
+  "packages": {
+    "title": "Advertising Packages",
+    "comingSoon": "Coming soon..."
+  },
+  "posts": {
+    "title": "Posts",
+    "comingSoon": "Coming soon..."
+  }
+}
