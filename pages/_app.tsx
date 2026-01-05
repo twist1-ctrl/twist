@@ -3,41 +3,21 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import { theme as baseTheme } from '../theme';
+import { COLORS, HOVER_COLORS } from '../constants/colors';
+import '../styles/globals.css';
 
-// Create theme with RTL support
+// Create theme with RTL/LTR support based on locale
+const createLocalizedTheme = (direction: 'rtl' | 'ltr') => {
+  return createTheme({
+    ...baseTheme,
+    direction,
+  });
+};
+
 const themes = {
-  he: createTheme({
-    direction: 'rtl',
-    palette: {
-      primary: {
-        main: '#1976d2',
-      },
-      secondary: {
-        main: '#dc004e',
-      },
-      nav: {
-        active: '#fff',
-        inactive: 'rgba(255,255,255,0.7)',
-        hover: '#fff',
-      },
-    },
-  }),
-  en: createTheme({
-    direction: 'ltr',
-    palette: {
-      primary: {
-        main: '#1976d2',
-      },
-      secondary: {
-        main: '#dc004e',
-      },
-      nav: {
-        active: '#fff',
-        inactive: 'rgba(255,255,255,0.7)',
-        hover: '#fff',
-      },
-    },
-  }),
+  he: createLocalizedTheme('rtl'),
+  en: createLocalizedTheme('ltr'),
 };
 
 function App({ Component, pageProps }: AppProps) {

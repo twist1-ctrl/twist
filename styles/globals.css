@@ -1,3 +1,49 @@
+@import './variables.css';
+
+@font-face {
+  font-family: 'Ploni AAA';
+  src: url('/fonts/ploni-regular-aaa.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ploni AAA';
+  src: url('/fonts/ploni-medium-aaa.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ploni AAA';
+  src: url('/fonts/ploni-bold-aaa.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ploni AAA';
+  src: url('/fonts/ploni-ultrabold-aaa.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ploni AAA';
+  src: url('/fonts/ploni-black-aaa.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  font-family: 'Ploni AAA', sans-serif;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -5,7 +51,7 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Ploni AAA', sans-serif;
   background: #f5f5f5;
   color: #333;
 }
