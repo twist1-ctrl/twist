@@ -6,6 +6,6 @@ module.exports = {
     locales: ['he', 'en'],
   },
   localePath: path.resolve('./public/locales'),
-  ns: ['common', 'navigation', 'home', 'packages', 'posts'],
+  ns: ['common'],
   defaultNS: 'common',
 };

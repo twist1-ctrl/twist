@@ -1,0 +1,351 @@
+%!Adobe-FontList 1.24
+%Locale:0x40d
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:AdobeHebrew-Regular
+FamilyName:Adobe Hebrew
+StyleName:Regular
+FullName:Adobe Hebrew Regular
+MenuName:Adobe Hebrew
+StyleBits:0
+FamilyNameNative:Adobe Hebrew
+StyleNameNative:Regular
+FullNameNative:Adobe Hebrew Regular
+WritingScript:Hebrew
+OutlineFileName:D:\Documents\אסתי גורדון\טוויסט\70 Folder\Document fonts\AdobeHebrew-Regular_0.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:73492
+FileModTime:1329295936
+WeightClass:400
+WidthClass:5
+AngleClass:0
+NameArray:0,Mac,18,Adobe Hebrew
+NameArray:0,Mac,4,Adobe Hebrew Regular
+NameArray:0,Win,1,Adobe Hebrew
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:NotoColorEmoji-SVG
+FamilyName:Noto Color Emoji SVG
+StyleName:Regular
+FullName:Noto Color Emoji SVG
+MenuName:Noto Color Emoji SVG
+StyleBits:0
+WritingScript:Emoji
+OutlineFileName:D:\Documents\אסתי גורדון\טוויסט\70 Folder\Document fonts\NotoColorEmoji-SVG.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:yes
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:19070820
+FileModTime:1763033995
+WeightClass:400
+WidthClass:5
+AngleClass:0
+NameArray:0,Win,1,Noto Color Emoji SVG
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:AlmoniMLv5AAA-Bold
+FamilyName:Almoni ML v5 AAA
+StyleName:Bold
+FullName:Almoni ML v5 AAA Bold
+MenuName:Almoni ML v5 AAA
+StyleBits:2
+WritingScript:Roman
+OutlineFileName:D:\Documents\אסתי גורדון\טוויסט\70 Folder\Document fonts\almoni-bold-aaa.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:180280
+FileModTime:1677757312
+WeightClass:700
+WidthClass:5
+AngleClass:0
+NameArray:0,Mac,4,Almoni ML v5 AAA Bold
+NameArray:0,Win,1,Almoni ML v5 AAA
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:AlmoniMLv5AAA-Regular
+FamilyName:Almoni ML v5 AAA
+StyleName:Regular
+FullName:Almoni ML v5 AAA Regular
+MenuName:Almoni ML v5 AAA
+StyleBits:0
+WritingScript:Roman
+OutlineFileName:D:\Documents\אסתי גורדון\טוויסט\70 Folder\Document fonts\almoni-regular-aaa.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:176456
+FileModTime:1677757312
+WeightClass:400
+WidthClass:5
+AngleClass:0
+NameArray:0,Mac,4,Almoni ML v5 AAA Regular
+NameArray:0,Win,1,Almoni ML v5 AAA
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:AmbivalentiCompressedAAA
+FamilyName:Ambivalenti Compressed AAA
+StyleName:Regular
+FullName:Ambivalenti Compressed AAA
+MenuName:Ambivalenti Compressed AAA
+StyleBits:2
+FamilyNameNative:Ambivalenti Compressed AAA
+StyleNameNative:Regular
+FullNameNative:Ambivalenti Compressed AAA Regular
+WritingScript:Hebrew
+OutlineFileName:D:\Documents\אסתי גורדון\טוויסט\70 Folder\Document fonts\ambivalenti-tzar-compressed-aaa.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:15076
+FileModTime:1593848556
+WeightClass:400
+WidthClass:5
+AngleClass:0
+NameArray:0,Mac,4,Ambivalenti Compressed AAA
+NameArray:0,Win,1,Ambivalenti Compressed AAA
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:AwantaDLAAA-Bold
+FamilyName:Awanta DL AAA
+StyleName:Bold
+FullName:Awanta DL AAA Bold
+MenuName:Awanta DL AAA Bold
+StyleBits:0
+WritingScript:Roman
+OutlineFileName:D:\Documents\אסתי גורדון\טוויסט\70 Folder\Document fonts\awanta-bold-aaa.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:94608
+FileModTime:1722141020
+WeightClass:700
+WidthClass:5
+AngleClass:1
+NameArray:0,Win,1,Awanta DL AAA Bold
+NameArray:0,Win,16,Awanta DL AAA
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:AwantaDLAAA-DemiBold
+FamilyName:Awanta DL AAA
+StyleName:DemiBold
+FullName:Awanta DL AAA DemiBold
+MenuName:Awanta DL AAA DemiBold
+StyleBits:0
+WritingScript:Roman
+OutlineFileName:D:\Documents\אסתי גורדון\טוויסט\70 Folder\Document fonts\awanta-demibold-aaa.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:97820
+FileModTime:1722141022
+WeightClass:600
+WidthClass:5
+AngleClass:1
+NameArray:0,Win,1,Awanta DL AAA DemiBold
+NameArray:0,Win,16,Awanta DL AAA
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:PloniMLv2AAA-Black
+FamilyName:Ploni ML v2 AAA
+StyleName:Black
+FullName:Ploni ML v2 AAA Black
+MenuName:Ploni ML v2 AAA Black
+StyleBits:0
+WritingScript:Roman
+OutlineFileName:D:\Documents\אסתי גורדון\טוויסט\70 Folder\Document fonts\ploni-black-aaa.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:187464
+FileModTime:1627282278
+WeightClass:900
+WidthClass:5
+AngleClass:0
+NameArray:0,Mac,4,Ploni ML v2 AAA Black
+NameArray:0,Win,1,Ploni ML v2 AAA Black
+NameArray:0,Win,16,Ploni ML v2 AAA
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:PloniMLv2AAA-Bold
+FamilyName:Ploni ML v2 AAA
+StyleName:Bold
+FullName:Ploni ML v2 AAA Bold
+MenuName:Ploni ML v2 AAA
+StyleBits:2
+WritingScript:Roman
+OutlineFileName:D:\Documents\אסתי גורדון\טוויסט\70 Folder\Document fonts\ploni-bold-aaa.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:181288
+FileModTime:1627282282
+WeightClass:700
+WidthClass:5
+AngleClass:0
+NameArray:0,Mac,4,Ploni ML v2 AAA Bold
+NameArray:0,Win,1,Ploni ML v2 AAA
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:PloniMLv2AAA-Medium
+FamilyName:Ploni ML v2 AAA
+StyleName:Medium
+FullName:Ploni ML v2 AAA Medium
+MenuName:Ploni ML v2 AAA Medium
+StyleBits:0
+WritingScript:Roman
+OutlineFileName:D:\Documents\אסתי גורדון\טוויסט\70 Folder\Document fonts\ploni-medium-aaa.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:183300
+FileModTime:1627282274
+WeightClass:500
+WidthClass:5
+AngleClass:0
+NameArray:0,Mac,4,Ploni ML v2 AAA Medium
+NameArray:0,Win,1,Ploni ML v2 AAA Medium
+NameArray:0,Win,16,Ploni ML v2 AAA
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:PloniMLv2AAA-Regular
+FamilyName:Ploni ML v2 AAA
+StyleName:Regular
+FullName:Ploni ML v2 AAA Regular
+MenuName:Ploni ML v2 AAA
+StyleBits:0
+WritingScript:Roman
+OutlineFileName:D:\Documents\אסתי גורדון\טוויסט\70 Folder\Document fonts\ploni-regular-aaa.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:181876
+FileModTime:1627282276
+WeightClass:400
+WidthClass:5
+AngleClass:0
+NameArray:0,Mac,4,Ploni ML v2 AAA Regular
+NameArray:0,Win,1,Ploni ML v2 AAA
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:PloniMLv2AAA-U-Bold
+FamilyName:Ploni ML v2 AAA
+StyleName:UltraBold
+FullName:Ploni ML v2 AAA UltraBold
+MenuName:Ploni ML v2 AAA U-Bold
+StyleBits:0
+WritingScript:Roman
+OutlineFileName:D:\Documents\אסתי גורדון\טוויסט\70 Folder\Document fonts\ploni-ultrabold-aaa.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:189920
+FileModTime:1627282282
+WeightClass:800
+WidthClass:5
+AngleClass:0
+NameArray:0,Mac,18,Ploni ML v2 AAA U-Bold
+NameArray:0,Mac,4,Ploni ML v2 AAA UltraBold
+NameArray:0,Win,1,Ploni ML v2 AAA U-Bold
+NameArray:0,Win,16,Ploni ML v2 AAA
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:ShlukDLv2AAA-Regular
+FamilyName:Shluk DL v2 AAA
+StyleName:Regular
+FullName:Shluk DL v2 AAA Regular
+MenuName:Shluk DL v2 AAA
+StyleBits:0
+WritingScript:Roman
+OutlineFileName:D:\Documents\אסתי גורדון\טוויסט\70 Folder\Document fonts\shluk-regular-aaa.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:134240
+FileModTime:1614778606
+WeightClass:400
+WidthClass:5
+AngleClass:1
+NameArray:0,Mac,4,Shluk DL v2 AAA Regular
+NameArray:0,Win,1,Shluk DL v2 AAA
+%EndFont
+

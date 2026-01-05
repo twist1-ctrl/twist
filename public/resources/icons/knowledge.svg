@@ -1,0 +1,30 @@
+<svg width="300" height="300" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      :root {
+        /* פרמטרים לשינוי צבע - צבעי Twist */
+        --color-left: #65a595;
+        --color-right: #c7403a;
+      }
+      .brain-left { fill: var(--color-left); }
+      .brain-right { fill: var(--color-right); }
+      .inner-line { fill: none; stroke: #ffffff; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+
+  <path class="brain-left" d="M47,11.5 C40,11.5 33,14 28,19 C21,24 19,32 21,40 C16,42 13,47 13,53 C13,60 17,66 23,68 C22,74 24,81 30,85 C35,89 42,89 47,87 L47,11.5 Z" />
+  
+  <path class="brain-right" d="M53,11.5 C60,11.5 67,14 72,19 C79,24 81,32 79,40 C84,42 87,47 87,53 C87,60 83,66 77,68 C78,74 76,81 70,85 C65,89 58,89 53,87 L53,11.5 Z" />
+
+  <g class="inner-line">
+    <path d="M40,25 C35,28 32,35 36,42" />
+    <path d="M25,48 C32,48 35,52 38,58" />
+    <path d="M30,70 C35,74 42,72 44,65" />
+  </g>
+
+  <g class="inner-line">
+    <path d="M60,25 C65,28 68,35 64,42" />
+    <path d="M75,48 C68,48 65,52 62,58" />
+    <path d="M70,70 C65,74 58,72 56,65" />
+  </g>
+</svg>
