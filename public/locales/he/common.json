@@ -1,0 +1,22 @@
+{
+  "home": {
+    "title": "הצטרף לרשימת ההפצה שלנו",
+    "subtitle": "קבל תוכן בעדכוני קוד",
+    "emailPlaceholder": "הכנס אימייל",
+    "submit": "הרשם",
+    "loading": "טוען..."
+  },
+  "navigation": {
+    "signup": "הרשמה",
+    "packages": "חבילות פירסום",
+    "posts": "פוסטים"
+  },
+  "packages": {
+    "title": "חבילות פירסום",
+    "comingSoon": "בקרוב..."
+  },
+  "posts": {
+    "title": "פוסטים",
+    "comingSoon": "בקרוב..."
+  }
+}
