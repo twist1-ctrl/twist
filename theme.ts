@@ -4,7 +4,7 @@ import { COLORS, HOVER_COLORS } from './constants/colors';
 
 declare module '@mui/material/styles' {
   interface Palette {
-    nav?: {
+    nav: {
       active: string;
       inactive: string;
       hover: string;
