@@ -1,0 +1,24 @@
+/**
+ * CSS Variables file
+ * Exports CSS variables that can be used in CSS files
+ */
+
+:root {
+  /* Legacy color tokens */
+  --color-primary: #65a595;
+  --color-secondary: #c7403a;
+  --color-primary-hover: #528a7e;
+  --color-secondary-hover: #a7332f;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-light-gray: #f9f9f9;
+  --color-dark-gray: #333333;
+
+  /* Brand color tokens */
+  --brand-primary: #c7403a;
+  --brand-secondary: #65a595;
+  --brand-surface: #ffffff;
+  --brand-surface-muted: #f6f5f2;
+  --brand-text-primary: #111111;
+  --brand-text-muted: #5b6e63;
+}
