@@ -10,6 +10,7 @@ import {
   iconVariants,
 } from '../motion/hoverAnchors.motion';
 import React from 'react';
+import { useLocale } from '@/hooks/useLocale';
 
 interface Anchor {
   title: string;
@@ -22,6 +23,7 @@ interface HoverAnchorsProps {
 }
 
 function AnchorItem({ title, body, icon }: { title: string; body: string; icon: string }) {
+  const { direction } = useLocale();
   const [isActive, setIsActive] = useState(false);
   const [isToggled, setIsToggled] = useState(false);
   const [isSettled, setIsSettled] = useState(false);
@@ -61,6 +63,7 @@ function AnchorItem({ title, body, icon }: { title: string; body: string; icon: 
       onTap={handleTap}
       role="button"
       aria-pressed={isOpen}
+      style={{ textAlign: direction === 'rtl' ? 'right' : 'left' } as any}
     >
       <div className={styles.titleWrapper}>
         <motion.span className={styles.title} variants={titleVariants}>

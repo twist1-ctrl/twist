@@ -8,7 +8,7 @@
     "posts": "פוסטים"
   },
   "signupForm": {
-    "title": "קבלו את הגליון הבא",
+    "title": "קבלו את המגזין הבא",
     "subtitle": "מידי שבוע, נקודות מבט שמזיזות מחשבה.",
     "emailPlaceholder": "הכנס אימייל",
     "submit": "הרשם",
@@ -16,7 +16,8 @@
     "magazine": "מגזין תוכן שבועי במייל",
     "magazineSubtitle": "לגברים ונשים חרדים שרוצים להתקדם",
     "mainTitle": "תוכן שמכבד אנשים",
-    "titleDescription": "לאנשים שחושבים קדימה",
+    "titleDescription": "לאנשים שחושבים ",
+    "titleDescriptionHighlight": "קדימה",
     "mainSubtitle": "מגזין תוכן שבועי במייל לגברים ונשים חרדים שרוצים להתקדם",
     "description": "שמבינים שהזמן הוא משאב.\nובוחרים מה נכנס לתיבה שלהם.",
     "knowledge": "ידע",
@@ -27,6 +28,8 @@
     "progressBody": "כל גיליון\nמזיז צעד קדימה",
     "emailLabel": "כתובת מייל",
     "emailInput": "name@email.com",
+    "fullNameLabel": "שם מלא",
+    "fullNameInput": "יוחנן כהן",
     "customizeLabel": "כדי להתאים את התוכן",
     "genderSelect": "בחר",
     "genderMale": "גבר",
@@ -36,7 +39,10 @@
     "residenceLabel": "יישוב מגורים",
     "residenceInput": "יישוב",
     "submitButton": "מצטרפים ל־Twist",
-    "trustText": "נשלח פעם בשבוע · ללא ספאם · ניתן להסרה בכל עת"
+    "trustText": "נשלח פעם בשבוע · ללא ספאם · ניתן להסרה בכל עת",
+    "errorTitle": "אופסס...",
+    "errorMessage": "שגיאה",
+    "errorRetry": "נסה שוב מאוחר יותר"
   },
   "packages": {
     "title": "חבילות פירסום",
@@ -89,5 +95,11 @@
   "posts": {
     "title": "פוסטים",
     "comingSoon": "בקרוב..."
+  },
+  "signupSuccess": {
+    "title": "תודה על הרשמתך!",
+    "message": "אנחנו שמחים שהצטרפת אלינו.\n\nחכה לגליון הקרוב של המגזין.",
+    "waitMessage": "תקבל את הניוזלטר השבועי בתיבת הדוא\"ל שלך.",
+    "button": "חזור לעמוד ההרשמה"
   }
 }

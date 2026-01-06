@@ -9,6 +9,7 @@ export const COLORS = {
   white: '#ffffff',
   black: '#000000',
   lightGray: '#f9f9f9',
+  mediumGray: '#9e9e9e',
   darkGray: '#333333',
 } as const;
 

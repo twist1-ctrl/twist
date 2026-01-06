@@ -16,7 +16,8 @@
     "magazine": "Weekly content magazine by email",
     "magazineSubtitle": "For Orthodox men and women who want to advance",
     "mainTitle": "Content That Respects People",
-    "titleDescription": "For people who think ahead",
+    "titleDescription": "For people who think ",
+    "titleDescriptionHighlight": "ahead",
     "mainSubtitle": "Weekly content magazine for Orthodox men and women who want to advance",
     "description": "Who understand that time is a resource.\n\nAnd choose what enters their inbox.",
     "knowledge": "Knowledge",
@@ -27,6 +28,8 @@
     "progressBody": "Each edition\nMoves you forward",
     "emailLabel": "Email Address",
     "emailInput": "name@email.com",
+    "fullNameLabel": "Full Name",
+    "fullNameInput": "John Doe",
     "customizeLabel": "To customize the content",
     "genderSelect": "Choose",
     "genderMale": "Male",
@@ -36,7 +39,10 @@
     "residenceLabel": "Place of Residence",
     "residenceInput": "City",
     "submitButton": "Join Twist",
-    "trustText": "Sent once a week · No spam · Can be unsubscribed anytime"
+    "trustText": "Sent once a week · No spam · Can be unsubscribed anytime",
+    "errorTitle": "Oops...",
+    "errorMessage": "Error",
+    "errorRetry": "Try again later"
   },
   "packages": {
     "title": "Advertising Packages",
@@ -89,5 +95,11 @@
   "posts": {
     "title": "Posts",
     "comingSoon": "Coming soon..."
+  },
+  "signupSuccess": {
+    "title": "Thank You for Signing Up!",
+    "message": "We're excited to have you join us.\n\nWait for the next issue of our magazine.",
+    "waitMessage": "You'll receive our weekly newsletter in your inbox.",
+    "button": "Back to Home"
   }
 }
