@@ -76,15 +76,14 @@ export const formStyles = {
   form: {
     display: 'grid' as const,
     gap: '1rem',
-    textAlign: 'right' as const,
     maxWidth: 520,
     margin: '0 auto',
   },
   label: {
     fontSize: '1rem',
     fontWeight: 500,
-    color: COLORS.darkGray,
-    marginBottom: '0.75rem',
+    color: COLORS.mediumGray,
+    marginBottom: '0.15rem',
     display: 'block',
   },
   input: {

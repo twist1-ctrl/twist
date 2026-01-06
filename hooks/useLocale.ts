@@ -39,5 +39,8 @@ export function useLocale() {
     return typeof value === 'string' ? value : key;
   };
 
-  return { t, locale, loading };
+  // Determine text direction based on locale
+  const direction = locale === 'he' ? 'rtl' : 'ltr';
+
+  return { t, locale, direction, loading };
 }

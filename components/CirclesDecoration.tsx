@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useMediaQuery } from '@mui/material';
 import { COLORS } from '../constants/colors';
 
 interface CirclesDecorationProps {
@@ -41,8 +42,9 @@ const floatingAnimation = {
 
 export default function CirclesDecoration({ show = true }: CirclesDecorationProps) {
   const [hoveredCircle, setHoveredCircle] = useState<number | null>(null);
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
-  if (!show) return null;
+  if (!show || isMobile) return null;
 
   return (
     <div
