@@ -4,6 +4,7 @@ import { ClientData, PulseemResponse } from '../../../services/pulseem';
 
 const PULSEEM_API_URL = process.env.PULSEEM_API_URL || 'https://ui-api.pulseem.com';
 const PULSEEM_API_ENDPOINT = `${PULSEEM_API_URL}/api/v1/ClientsApi/AddClients`;
+const PULSEEM_SET_STATUS_ENDPOINT = `${PULSEEM_API_URL}/api/v1/ClientsApi/SetClientStatus`;
 const PULSEEM_API_KEY = process.env.PULSEEM_API_KEY;
 const PULSEEM_GROUP_IDS = process.env.PULSEEM_GROUP_IDS
   ? JSON.parse(process.env.PULSEEM_GROUP_IDS)
@@ -70,6 +71,35 @@ export default async function handler(
       headers,
     });
 
+    console.debug('🔍 [API] Pulseem response received:', {
+      status: response.data.status,
+      sessionId: response.data.sessionId,
+      clientsUploadSummary: response.data.clientsUploadSummary,
+    });
+
+    // If existing email, activate the user silently
+    const { existingEmails } = response.data.clientsUploadSummary;
+    if (existingEmails === 1 && clientData.email) {
+      try {
+        console.debug('🔍 [API] Activating existing user:', clientData.email);
+        
+        const activatePayload = {
+          cellphoneAndEmailList: [clientData.email],
+          newStatus: 'Active',
+          emailOrCellphone: 'Any',
+        };
+
+        await axios.post(PULSEEM_SET_STATUS_ENDPOINT, activatePayload, {
+          headers,
+        });
+
+        console.debug('✅ [API] User activated successfully:', clientData.email);
+      } catch (activateError) {
+        // Log the error but don't fail the main request
+        console.error('❌ [API] Failed to activate user:', activateError);
+      }
+    }
+
     // Check if there's an error message from Pulseem
     if (response.data.error) {
       console.error('❌ [API] Pulseem error:', response.data.error);
@@ -92,6 +122,12 @@ export default async function handler(
         clientsUploadSummary: response.data.clientsUploadSummary,
       });
     }
+
+    console.debug('✅ [API] Successfully added client:', {
+      totalValidUploadedRecords,
+      sessionId: response.data.sessionId,
+      status: response.data.status,
+    });
 
     return res.status(200).json(response.data);
   } catch (error) {
