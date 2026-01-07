@@ -83,7 +83,7 @@ export default function SignupForm() {
         // Only one word - use as firstName
         firstName = nameParts[0];
         lastName = '';
-      } else {
+      } else if (nameParts.length > 1) {
         // Multiple words - last word is lastName, rest is firstName
         lastName = nameParts[nameParts.length - 1];
         firstName = nameParts.slice(0, -1).join(' ');
@@ -116,7 +116,8 @@ export default function SignupForm() {
       if (response.error) {
         setError(response.error);
       } else if (response.status === 'Success') {
-        // Redirect to success page
+        // Save first name to sessionStorage and redirect to success page
+        sessionStorage.setItem('signupUserName', firstName);
         push('/signup-success');
       } else {
         setError('Failed to process signup');
