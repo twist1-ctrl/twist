@@ -7,14 +7,14 @@ import {
   Link as MuiLink,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { useLocale } from '../hooks/useLocale';
+import { useTranslation } from 'next-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
 import { navLinkStyles } from '../styles/navLinkStyles';
 
 export default function AppBar() {
   const router = useRouter();
   const theme = useTheme();
-  const { t } = useLocale();
+  const { t } = useTranslation('common');
 
   // Highlight active route
   const isActive = (path: string) => router.pathname === path;

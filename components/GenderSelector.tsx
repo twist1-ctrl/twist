@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import styles from '../styles/gender-selector.module.css';
-import { useLocale } from '../hooks/useLocale';
+import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 
 interface GenderSelectorProps {
   value: string;
@@ -9,7 +10,9 @@ interface GenderSelectorProps {
 }
 
 export default function GenderSelector({ value, onChange }: GenderSelectorProps) {
-  const { t, direction } = useLocale();
+  const { t } = useTranslation('common');
+  const { locale } = useRouter();
+  const direction = locale === 'he' ? 'rtl' : 'ltr';
 
   const options = [
     {

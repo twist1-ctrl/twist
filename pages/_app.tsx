@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import { appWithTranslation } from 'next-i18next';
 import { theme as baseTheme } from '../theme';
 import { COLORS, HOVER_COLORS } from '../constants/colors';
 import '../styles/globals.css';
@@ -42,4 +43,4 @@ function App({ Component, pageProps }: AppProps) {
   );
 }
 
-export default App;
+export default appWithTranslation(App);

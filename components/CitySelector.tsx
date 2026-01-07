@@ -1,6 +1,7 @@
 import { Autocomplete, TextField } from '@mui/material';
 import { useState } from 'react';
-import { useLocale } from '../hooks/useLocale';
+import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 import type { City } from '@/constants/cities';
 import { ISRAEL_CITIES } from '@/constants/cities';
 import { formStyles } from '../constants/componentStyles';
@@ -11,7 +12,9 @@ interface CitySelectorProps {
 }
 
 export default function CitySelector({ value, onChange }: CitySelectorProps) {
-  const { locale, t, direction } = useLocale();
+  const { t } = useTranslation('common');
+  const { locale } = useRouter();
+  const direction = locale === 'he' ? 'rtl' : 'ltr';
   const [searchInputValue, setSearchInputValue] = useState('');
   
   const textAlign = direction === 'rtl' ? 'right' : 'left';
