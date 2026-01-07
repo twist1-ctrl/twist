@@ -1,4 +1,6 @@
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
+import { useState, useEffect, useRef } from 'react';
 import { useLocale } from '../hooks/useLocale';
 import Layout from '../components/Layout';
 import { formStyles } from '../constants/componentStyles';
@@ -33,8 +35,27 @@ const buttonVariants = {
 };
 
 export default function SignupSuccess() {
+  const router = useRouter();
   const { t, direction } = useLocale();
   const textAlign = direction === 'rtl' ? 'right' : 'left';
+  
+  // Get user name from sessionStorage
+  const [userName, setUserName] = useState('');
+  const hasRun = useRef(false);
+  
+  useEffect(() => {
+    // Only run once on client side
+    if (typeof window !== 'undefined' && !hasRun.current) {
+      hasRun.current = true;
+      const name = sessionStorage.getItem('signupUserName') || '';
+      console.log('Retrieved name from sessionStorage:', name);
+      setUserName(name);
+      // Clear from sessionStorage after reading
+      if (name) {
+        sessionStorage.removeItem('signupUserName');
+      }
+    }
+  }, []);
 
   const handleBackHome = () => {
     window.location.href = '/';
@@ -96,7 +117,7 @@ export default function SignupSuccess() {
             marginBottom: '1rem',
           }}
         >
-          {t('signupSuccess.title')}
+          {userName && `${userName}, `}{t('signupSuccess.title')}
         </motion.h1>
 
         <motion.p
