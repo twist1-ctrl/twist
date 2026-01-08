@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { useState, useEffect, useRef } from 'react';
-import { useLocale } from '../hooks/useLocale';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Layout from '../components/Layout';
 import { formStyles } from '../constants/componentStyles';
 
@@ -36,7 +37,8 @@ const buttonVariants = {
 
 export default function SignupSuccess() {
   const router = useRouter();
-  const { t, direction } = useLocale();
+  const { t } = useTranslation('common');
+  const direction = router.locale === 'he' ? 'rtl' : 'ltr';
   const textAlign = direction === 'rtl' ? 'right' : 'left';
   
   // Get user name from sessionStorage
@@ -162,4 +164,12 @@ export default function SignupSuccess() {
       </motion.section>
     </Layout>
   );
+}
+
+export async function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+    },
+  };
 }
