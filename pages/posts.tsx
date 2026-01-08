@@ -1,10 +1,11 @@
 import { Box, Typography } from '@mui/material';
-import { useLocale } from '../hooks/useLocale';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Layout from '../components/Layout';
 import PostList from '../components/PostList';
 
 export default function Posts() {
-  const { t } = useLocale();
+  const { t } = useTranslation('common');
 
   return (
     <Layout>
@@ -16,4 +17,12 @@ export default function Posts() {
       </Box>
     </Layout>
   );
+}
+
+export async function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+    },
+  };
 }

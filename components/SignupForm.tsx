@@ -29,11 +29,13 @@ import { formStyles } from '../constants/componentStyles';
 import HoverAnchors from './HoverAnchors';
 import GenderSelector from './GenderSelector';
 import CitySelector from './CitySelector';
-import { useLocale } from '../hooks/useLocale';
+import { useTranslation } from 'next-i18next';
 import { addClientToPulseem } from '../services/pulseem';
 
 export default function SignupForm() {
-  const { t, direction } = useLocale();
+  const { t, i18n } = useTranslation('common');
+  const { locale } = useRouter();
+  const direction = locale === 'he' ? 'rtl' : 'ltr';
   const { push } = useRouter();
   const textAlign = direction === 'rtl' ? 'right' : 'left';
   

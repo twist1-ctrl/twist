@@ -1,10 +1,11 @@
 import { Box, Typography } from '@mui/material';
-import { useLocale } from '../hooks/useLocale';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Layout from '../components/Layout';
 import SignupForm from '../components/SignupForm';
 
 export default function Home() {
-  const { t } = useLocale();
+  const { t } = useTranslation('common');
 
   return (
     <Layout>
@@ -19,4 +20,12 @@ export default function Home() {
       </Box>
     </Layout>
   );
+}
+
+export async function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+    },
+  };
 }

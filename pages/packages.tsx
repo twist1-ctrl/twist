@@ -8,7 +8,8 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import PhoneIcon from '@mui/icons-material/Phone';
 import StarIcon from '@mui/icons-material/Star';
 import Layout from '../components/Layout';
-import { useLocale } from '../hooks/useLocale';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 interface PackageCardProps {
     title: string;
@@ -79,7 +80,7 @@ const PackageCard: React.FC<PackageCardProps> = ({ title, price, features, butto
 };
 
 export default function Packages() {
-    const { t } = useLocale();
+    const { t } = useTranslation('common');
     const theme = useTheme();
 
     return (
@@ -301,4 +302,12 @@ export default function Packages() {
             </Container>
         </Layout>
     );
+}
+
+export async function getStaticProps({ locale }: { locale: string }) {
+    return {
+        props: {
+            ...(await serverSideTranslations(locale, ['common'])),
+        },
+    };
 }
