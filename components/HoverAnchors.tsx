@@ -10,7 +10,7 @@ import {
   iconVariants,
 } from '../motion/hoverAnchors.motion';
 import React from 'react';
-import { useLocale } from '@/hooks/useLocale';
+import { useTranslation } from 'next-i18next';
 
 interface Anchor {
   title: string;
@@ -23,7 +23,8 @@ interface HoverAnchorsProps {
 }
 
 function AnchorItem({ title, body, icon }: { title: string; body: string; icon: string }) {
-  const { direction } = useLocale();
+  const { i18n } = useTranslation();
+  const direction = i18n.language === 'he' ? 'rtl' : 'ltr';
   const [isActive, setIsActive] = useState(false);
   const [isToggled, setIsToggled] = useState(false);
   const [isSettled, setIsSettled] = useState(false);

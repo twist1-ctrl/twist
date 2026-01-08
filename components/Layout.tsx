@@ -12,7 +12,7 @@ export default function Layout({ children, showCircles = true }: LayoutProps) {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', position: 'relative' }}>
       <CirclesDecoration show={showCircles} />
-      <AppBar />
+      {/* <AppBar /> */}
       <Container
         maxWidth="lg"
         sx={{

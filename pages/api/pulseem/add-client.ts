@@ -138,8 +138,16 @@ export default async function handler(
 
     // Check if it's an axios error with response data containing an error
     let errorMessage = 'Failed to process signup';
-    if (axios.isAxiosError(error) && error.response?.data?.error) {
-      errorMessage = error.response.data.error;
+    if (axios.isAxiosError(error)) {
+      if (error.response?.data?.error) {
+        errorMessage = error.response.data.error;
+      } else if (error.code === 'EAI_AGAIN' || error.code === 'ENOTFOUND') {
+        errorMessage = 'Unable to connect to signup service. Please try again later.';
+      } else if (error.message) {
+        errorMessage = `Network error: ${error.message}`;
+      }
+    } else if (error instanceof Error) {
+      errorMessage = error.message;
     }
 
     return res.status(500).json({
