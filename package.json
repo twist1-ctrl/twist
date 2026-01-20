@@ -16,6 +16,7 @@
     "@mui/material": "^7.3.6",
     "@mui/system": "^7.3.6",
     "axios": "^1.13.2",
+    "contentful": "^11.10.1",
     "framer-motion": "^12.23.26",
     "i18next": "^23.16.8",
     "next": "^15.0.0",
