@@ -1,16 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Stack, Typography, Box } from '@mui/material';
 import PostCard from './PostCard';
-
-interface Post {
-  id: string;
-  title: string;
-  content: string;
-  createdAt: string;
-}
+import { IPost } from '../types/post';
 
 export default function PostList() {
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<IPost[]>([]);
 
   // Fetch posts from API
   useEffect(() => {
