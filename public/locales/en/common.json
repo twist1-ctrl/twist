@@ -94,7 +94,9 @@
   },
   "posts": {
     "title": "Posts",
-    "comingSoon": "Coming soon..."
+    "comingSoon": "Coming soon...",
+    "allTags": "הכל",
+    "noPosts": "No posts available yet"
   },
   "signupSuccess": {
     "title": "Thank You for Signing Up!",

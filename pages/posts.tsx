@@ -1,17 +1,21 @@
-import { Box, Typography, Container, Stack } from '@mui/material';
+import { Box, Typography, Container } from '@mui/material';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Layout from '../components/Layout';
 import PostCard from '../components/PostCard';
-import contentfulClient from '../services/contentful';
+import TagSelector, { ContentfulTag } from '../components/TagSelector';
+import contentfulClient, { getContentfulTags } from '../services/contentful';
+import { usePostFilters } from '../hooks/usePostFilters';
 import { BlogPostSkeleton, IPost } from '../types/post';
 
 interface PostsProps {
   posts: IPost[];
+  tags: ContentfulTag[];
 }
 
-export default function Posts({ posts }: PostsProps) {
+export default function Posts({ posts, tags }: PostsProps) {
   const { t } = useTranslation('common');
+  const { filters, filteredPosts, setTag } = usePostFilters(posts);
 
   return (
     <Layout>
@@ -20,10 +24,17 @@ export default function Posts({ posts }: PostsProps) {
           <Typography variant="h3" component="h1" gutterBottom sx={{ mb: 4 }}>
             {t('posts.title')}
           </Typography>
+
+          <TagSelector
+            tags={tags}
+            selectedTag={filters.selectedTag}
+            onSelect={setTag}
+            allLabel={t('posts.allTags')}
+          />
           
-          {posts.length === 0 ? (
+          {filteredPosts.length === 0 ? (
             <Typography variant="body1" color="text.secondary" sx={{ py: 4, textAlign: 'center' }}>
-              No posts available yet
+              {t('posts.noPosts')}
             </Typography>
           ) : (
             <Box 
@@ -33,7 +44,7 @@ export default function Posts({ posts }: PostsProps) {
                 gap: 3 
               }}
             >
-              {posts.map((post) => (
+              {filteredPosts.map((post) => (
                 <PostCard key={post.id} post={post} />
               ))}
             </Box>
@@ -47,12 +58,14 @@ export default function Posts({ posts }: PostsProps) {
 export async function getStaticProps({ locale }: { locale: string }) {
   try {
     console.log('🔍 Fetching posts from Contentful...');
-    
-    // Fetch blog posts from Contentful
-    const response = await contentfulClient.getEntries<BlogPostSkeleton>({
-      content_type: 'blogPost',
-      order: ['-fields.publishDate'], // Sort by most recent first
-    });
+
+    const [response, tagsResponse] = await Promise.all([
+      contentfulClient.getEntries<BlogPostSkeleton>({
+        content_type: 'blogPost',
+        order: ['-fields.publishDate'], // Sort by most recent first
+      }),
+      getContentfulTags(),
+    ]);
 
     console.log('📦 Contentful Response:', {
       total: response.total,
@@ -100,6 +113,11 @@ export async function getStaticProps({ locale }: { locale: string }) {
           .join('\n');
       }
 
+      const metadataTags = ((item as any).metadata?.tags || []) as Array<{ sys?: { id?: string } }>;
+      const tagIds = metadataTags
+        .map((tag) => tag?.sys?.id)
+        .filter((tagId): tagId is string => Boolean(tagId));
+
       return {
         id: item.sys.id,
         title: item.fields.title as string,
@@ -111,6 +129,7 @@ export async function getStaticProps({ locale }: { locale: string }) {
         content: contentText,
         excerpt: contentText.substring(0, 150) + (contentText.length > 150 ? '...' : ''),
         publishedDate: item.fields.publishDate as string,
+        tagIds,
         ...(item.fields.category && { category: item.fields.category as string[] }),
       };
     });
@@ -118,6 +137,7 @@ export async function getStaticProps({ locale }: { locale: string }) {
     return {
       props: {
         posts,
+        tags: tagsResponse.items ?? [],
         ...(await serverSideTranslations(locale, ['common'])),
       },
       revalidate: 300, // Revalidate every 5 minutes
@@ -128,6 +148,7 @@ export async function getStaticProps({ locale }: { locale: string }) {
     return {
       props: {
         posts: [],
+        tags: [],
         ...(await serverSideTranslations(locale, ['common'])),
       },
       revalidate: 300,

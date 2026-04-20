@@ -25,5 +25,6 @@ export interface IPost {
   content: string;
   excerpt?: string;
   publishedDate: string;
+  tagIds?: string[];
   category?: string[];
 }
