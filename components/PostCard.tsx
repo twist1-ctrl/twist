@@ -1,27 +1,7 @@
 import { Card, CardContent, CardMedia, Typography, CardActionArea, Tooltip } from '@mui/material';
 import { useRouter } from 'next/router';
 import { IPost } from '../types/post';
-import { HDate, gematriya } from '@hebcal/core';
-
-const hebrewMonths = [
-  'ניסן', 'אייר', 'סיוון', 'תמוז', 'אב', 'אלול',
-  'תשרי', 'חשוון', 'כסלו', 'טבת', 'שבט', 'אדר'
-];
-
-const hebrewMonthsLeap = [
-  'ניסן', 'אייר', 'סיוון', 'תמוז', 'אב', 'אלול',
-  'תשרי', 'חשוון', 'כסלו', 'טבת', 'שבט', 'אדר א׳', 'אדר ב׳'
-];
-
-function getHebrewDateString(date: Date): string {
-  const hdate = new HDate(date);
-  const day = gematriya(hdate.getDate());
-  const isLeapYear = hdate.isLeapYear();
-  const monthList = isLeapYear ? hebrewMonthsLeap : hebrewMonths;
-  const monthName = monthList[hdate.getMonth() - 1];
-  const year = gematriya(hdate.getFullYear());
-  return `${day} ${monthName} ${year}`;
-}
+import { usePostDate } from '../hooks/usePostDate';
 
 interface PostCardProps {
   post: IPost;
@@ -29,6 +9,7 @@ interface PostCardProps {
 
 export default function PostCard({ post }: PostCardProps) {
   const router = useRouter();
+  const { gregorianDate, hebrewDate } = usePostDate(post.publishedDate, router.locale);
 
   const handleClick = () => {
     router.push(`/posts/${post.slug}`);
@@ -82,8 +63,8 @@ export default function PostCard({ post }: PostCardProps) {
               {post.title}
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-              {new Date(post.publishedDate).toLocaleDateString()}
-              {router.locale === 'he' && ` • ${getHebrewDateString(new Date(post.publishedDate))}`}
+              {gregorianDate}
+              {router.locale === 'he' && ` • ${hebrewDate}`}
             </Typography>
             {post.excerpt && (
               <Typography variant="body1" color="text.primary">

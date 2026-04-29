@@ -1,10 +1,10 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Box, Typography, Container, Divider } from '@mui/material';
-import Image from 'next/image';
 import Layout from '../../components/Layout';
 import contentfulClient from '../../services/contentful';
+import { usePostDate } from '../../hooks/usePostDate';
 import { BlogPostSkeleton, IPost } from '../../types/post';
 
 interface PostPageProps {
@@ -12,7 +12,8 @@ interface PostPageProps {
 }
 
 export default function PostPage({ post }: PostPageProps) {
-  const { t } = useTranslation('common');
+  const router = useRouter();
+  const { gregorianDate, hebrewDate } = usePostDate(post.publishedDate, router.locale);
 
   return (
     <Layout>
@@ -34,11 +35,8 @@ export default function PostPage({ post }: PostPageProps) {
             color="text.secondary" 
             sx={{ mb: 4 }}
           >
-            {new Date(post.publishedDate).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric'
-            })}
+            {gregorianDate}
+            {router.locale === 'he' && ` • ${hebrewDate}`}
           </Typography>
 
           {/* Featured Image */}
