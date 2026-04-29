@@ -1,7 +1,12 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import { BLOCKS, MARKS, INLINES, Document } from '@contentful/rich-text-types';
+import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
+import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { Box, Typography, Container, Divider } from '@mui/material';
+import { Box, Typography, Container, Divider, Button } from '@mui/material';
 import Layout from '../../components/Layout';
 import contentfulClient from '../../services/contentful';
 import { usePostDate } from '../../hooks/usePostDate';
@@ -13,12 +18,40 @@ interface PostPageProps {
 
 export default function PostPage({ post }: PostPageProps) {
   const router = useRouter();
+  const { t } = useTranslation('common');
   const { gregorianDate, hebrewDate } = usePostDate(post.publishedDate, router.locale);
+  const isHebrew = router.locale === 'he';
+  const backIcon = isHebrew ? <ArrowForwardRoundedIcon fontSize="small" /> : <ArrowBackRoundedIcon fontSize="small" />;
 
   return (
     <Layout>
       <Container maxWidth="md">
         <Box sx={{ py: 6 }}>
+          <Button
+            variant="text"
+            onClick={() => router.push('/posts')}
+            startIcon={!isHebrew ? backIcon : undefined}
+            endIcon={isHebrew ? backIcon : undefined}
+            sx={{
+              gap: 1,
+              mb: 3,
+              px: 0,
+              minWidth: 'auto',
+              alignSelf: 'flex-start',
+              color: 'text.secondary',
+              fontWeight: 600,
+              '& .MuiButton-startIcon, & .MuiButton-endIcon': {
+                margin: 0,
+              },
+              '&:hover': {
+                bgcolor: 'transparent',
+                color: 'text.primary',
+              },
+            }}
+          >
+            {t('posts.backToPosts')}
+          </Button>
+
           {/* Post Title */}
           <Typography 
             variant="h2" 
@@ -64,18 +97,49 @@ export default function PostPage({ post }: PostPageProps) {
           <Divider sx={{ mb: 4 }} />
 
           {/* Post Content */}
-          <Typography 
-            variant="body1" 
-            component="div"
-            sx={{ 
+          <Box
+            sx={{
               lineHeight: 1.8,
               fontSize: '1.1rem',
-              whiteSpace: 'pre-wrap',
-              '& p': { mb: 2 }
+              '& p': { mb: 2 },
+              '& ul': { pl: 3, mb: 2, listStyleType: 'disc' },
+              '& ol': { pl: 3, mb: 2, listStyleType: 'decimal' },
+              '& li': { mb: 0.5 },
+              '& b, & strong': { fontWeight: 700 },
+              '& i, & em': { fontStyle: 'italic' },
+              '& u': { textDecoration: 'underline' },
+              '& h1, & h2, & h3, & h4, & h5, & h6': { fontWeight: 700, mt: 3, mb: 1 },
+              '& blockquote': {
+                borderLeft: '4px solid',
+                borderColor: 'primary.main',
+                pl: 2,
+                ml: 0,
+                my: 2,
+                color: 'text.secondary',
+              },
+              '& a': { color: 'primary.main', textDecoration: 'underline' },
             }}
           >
-            {post.content}
-          </Typography>
+            {post.rawContent
+              ? documentToReactComponents(post.rawContent)
+              : post.content}
+          </Box>
+
+          <Box sx={{ mt: 6, display: 'flex', justifyContent: 'center' }}>
+            <Button
+              variant="contained"
+              size="large"
+              onClick={() => router.push('/posts')}
+              sx={{
+                minWidth: 220,
+                borderRadius: '999px',
+                px: 3,
+                py: 1.25,
+              }}
+            >
+              {t('posts.backToPosts')}
+            </Button>
+          </Box>
         </Box>
       </Container>
     </Layout>
@@ -159,8 +223,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
       ? firstImage.fields.title 
       : item.fields.title;
 
-    // Convert RichText to plain text for content
-    const richTextContent = item.fields.postContent;
+    const richTextContent = item.fields.postContent as Document | undefined;
     let contentText = '';
     if (richTextContent?.content) {
       contentText = richTextContent.content
@@ -183,6 +246,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
         alt: imageAlt as string,
       },
       content: contentText,
+      rawContent: richTextContent,
       publishedDate: item.fields.publishDate as string,
       ...(item.fields.category && { category: item.fields.category as string[] }),
     };

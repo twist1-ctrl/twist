@@ -101,7 +101,6 @@ export default function AppBar() {
             justifyContent: 'center',
             px: { xs: 1.25, sm: 1.5 },
             py: { xs: 0.6, sm: 0.75 },
-            bgcolor: '#ffffff',
           }}
         >
           <Box

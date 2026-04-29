@@ -1,4 +1,7 @@
 {
+  "meta": {
+    "siteTitle": "TWIST"
+  },
   "home": {
     "slogen": "Magazine for breaking routines"
   },
@@ -48,7 +51,8 @@
     "title": "Posts",
     "comingSoon": "Coming soon...",
     "allTags": "הכל",
-    "noPosts": "No posts available yet"
+    "noPosts": "No posts available yet",
+    "backToPosts": "Back to posts"
   },
   "contact": {
     "title": "Contact Us",

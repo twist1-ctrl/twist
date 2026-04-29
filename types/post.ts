@@ -1,4 +1,5 @@
 import { Asset, EntryFieldTypes } from 'contentful';
+import { Document } from '@contentful/rich-text-types';
 
 // Define the blog post skeleton type for Contentful
 export interface BlogPostSkeleton {
@@ -23,6 +24,7 @@ export interface IPost {
     alt: string;
   };
   content: string;
+  rawContent?: Document;
   excerpt?: string;
   publishedDate: string;
   tagIds?: string[];
