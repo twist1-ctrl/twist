@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next';
 
-export default function Home() {
+export default function WildcardRedirectPage() {
   return null;
 }
 
