@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Box, Typography, Container } from '@mui/material';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -15,7 +16,36 @@ interface PostsProps {
 
 export default function Posts({ posts, tags }: PostsProps) {
   const { t } = useTranslation('common');
-  const { filters, filteredPosts, setTag } = usePostFilters(posts);
+
+  const sortedTags = useMemo(() => {
+    const getTagNumber = (name: string): number | null => {
+      const match = name.match(/\d+/);
+      return match ? Number(match[0]) : null;
+    };
+
+    return [...tags].sort((a, b) => {
+      const aNumber = getTagNumber(a.name);
+      const bNumber = getTagNumber(b.name);
+
+      if (aNumber !== null && bNumber !== null) {
+        return aNumber - bNumber;
+      }
+
+      if (aNumber !== null) {
+        return -1;
+      }
+
+      if (bNumber !== null) {
+        return 1;
+      }
+
+      return a.name.localeCompare(b.name, 'he');
+    });
+  }, [tags]);
+
+  const tagsDescending = useMemo(() => [...sortedTags].reverse(), [sortedTags]);
+  const defaultSelectedTag = tagsDescending.length > 0 ? tagsDescending[0].sys.id : null;
+  const { filters, filteredPosts, setTag } = usePostFilters(posts, defaultSelectedTag);
 
   return (
     <Layout>
@@ -26,7 +56,7 @@ export default function Posts({ posts, tags }: PostsProps) {
           </Typography>
 
           <TagSelector
-            tags={tags}
+            tags={tagsDescending}
             selectedTag={filters.selectedTag}
             onSelect={setTag}
             allLabel={t('posts.allTags')}

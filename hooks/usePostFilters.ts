@@ -9,9 +9,9 @@ export interface PostFiltersState {
   sortOrder: SortOrder;
 }
 
-export function usePostFilters(allPosts: IPost[]) {
+export function usePostFilters(allPosts: IPost[], initialSelectedTag: string | null = null) {
   const [filters, setFilters] = useState<PostFiltersState>({
-    selectedTag: null,
+    selectedTag: initialSelectedTag,
     searchQuery: '',
     sortOrder: 'newest',
   });
