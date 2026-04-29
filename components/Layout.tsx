@@ -9,10 +9,12 @@ interface LayoutProps {
 }
 
 export default function Layout({ children, showCircles = true }: LayoutProps) {
+  const hideAppBar = process.env.NEXT_PUBLIC_HIDE_APP_BAR === 'true';
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', position: 'relative' }}>
       <CirclesDecoration show={showCircles} />
-      {/* <AppBar /> */}
+      {!hideAppBar && <AppBar />}
       <Container
         maxWidth="lg"
         sx={{
