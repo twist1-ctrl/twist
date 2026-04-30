@@ -8,6 +8,45 @@ import { formatGregorianDate, formatHebrewDate } from '../utils/postDate';
 
 type SupportedLocale = 'he' | 'en';
 
+const CHROME_CANDIDATE_PATHS = [
+  '/usr/bin/google-chrome-stable',
+  '/usr/bin/google-chrome',
+  '/usr/bin/chromium-browser',
+  '/usr/bin/chromium',
+];
+
+function resolveExecutablePath(): string | undefined {
+  const envPath = process.env.PUPPETEER_EXECUTABLE_PATH;
+
+  if (envPath && fs.existsSync(envPath)) {
+    return envPath;
+  }
+
+  return CHROME_CANDIDATE_PATHS.find((candidatePath) => fs.existsSync(candidatePath));
+}
+
+async function launchBrowser() {
+  if (process.env.VERCEL === '1') {
+    const chromium = await import('@sparticuz/chromium');
+    const puppeteerCore = await import('puppeteer-core');
+
+    return puppeteerCore.default.launch({
+      args: chromium.default.args,
+      defaultViewport: chromium.default.defaultViewport,
+      executablePath: await chromium.default.executablePath(),
+      headless: chromium.default.headless,
+    });
+  }
+
+  const executablePath = resolveExecutablePath();
+
+  return puppeteer.launch({
+    headless: true,
+    executablePath,
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  });
+}
+
 const copyByLocale: Record<SupportedLocale, { siteTitle: string; siteTagline: string; publishedLabel: string; generatedFromLabel: string; untitledFallback: string; }> = {
   he: {
     siteTitle: 'טוויסט',
@@ -333,10 +372,7 @@ function buildPdfHtml(post: IPost, locale: SupportedLocale, siteOrigin: string):
 }
 
 export async function renderPostPdf(post: IPost, locale: SupportedLocale, siteOrigin: string): Promise<Buffer> {
-  const browser = await puppeteer.launch({
-    headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
-  });
+  const browser = await launchBrowser();
 
   try {
     const page = await browser.newPage();
