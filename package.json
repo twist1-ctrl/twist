@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@sparticuz/chromium": "^126.0.0",
+    "@sparticuz/chromium": "^148.0.0",
     "@contentful/rich-text-html-renderer": "^17.2.2",
     "@contentful/rich-text-react-renderer": "^16.2.1",
     "@contentful/rich-text-types": "^17.2.7",
