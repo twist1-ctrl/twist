@@ -52,7 +52,13 @@
     "comingSoon": "Coming soon...",
     "allTags": "הכל",
     "noPosts": "No posts available yet",
-    "backToPosts": "Back to posts"
+    "backToPosts": "Back to posts",
+    "exportPdf": "Export PDF",
+    "exportPdfLoading": "Preparing PDF...",
+    "downloadPdf": "Download"
+    ,
+    "copyPdfLink": "Copy link",
+    "linkCopied": "Link copied"
   },
   "contact": {
     "title": "Contact Us",
