@@ -4,6 +4,9 @@ import { BlogPostSkeleton, IPost } from '../types/post';
 
 type ContentfulPostEntry = Awaited<ReturnType<typeof contentfulClient.getEntries<BlogPostSkeleton>>>['items'][number];
 
+// Global cache for build time (filled once by fetchAllPostSlugs)
+let allPostsCache: IPost[] | null = null;
+
 function normalizeSlugPart(value: string): string {
   return value
     .toLowerCase()
@@ -67,26 +70,20 @@ export function mapContentfulPost(item: ContentfulPostEntry): IPost {
 }
 
 export async function fetchPostBySlug(slug: string): Promise<IPost | null> {
-  const directMatch = await contentfulClient.getEntries<BlogPostSkeleton>({
-    content_type: 'blogPost',
-    'fields.slug': slug,
-    limit: 1,
-  });
-
-  if (directMatch.items.length > 0) {
-    const item = directMatch.items[0];
-    return mapContentfulPost(item);
+  // Use cached posts if available (filled by fetchAllPostSlugs during build)
+  if (allPostsCache) {
+    return allPostsCache.find((post) => post.slug === slug) || null;
   }
 
-  const fallbackMatch = await contentfulClient.getEntries<BlogPostSkeleton>({
+  // Fallback: fetch all posts (only happens if fetchAllPostSlugs wasn't called first)
+  const response = await contentfulClient.getEntries<BlogPostSkeleton>({
     content_type: 'blogPost',
   });
 
-  const item = fallbackMatch.items.find((entry) =>
-    createPostSlug(String(entry.fields.title || ''), entry.sys.id, entry.fields.slug ? String(entry.fields.slug) : undefined) === slug,
-  );
+  const posts = response.items.map(mapContentfulPost);
+  allPostsCache = posts;
 
-  return item ? mapContentfulPost(item) : null;
+  return posts.find((post) => post.slug === slug) || null;
 }
 
 export async function fetchAllPostSlugs(): Promise<string[]> {
@@ -94,7 +91,8 @@ export async function fetchAllPostSlugs(): Promise<string[]> {
     content_type: 'blogPost',
   });
 
-  return response.items.map((item) =>
-    createPostSlug(String(item.fields.title || ''), item.sys.id, item.fields.slug ? String(item.fields.slug) : undefined),
-  );
+  const posts = response.items.map(mapContentfulPost);
+  allPostsCache = posts; // Cache the posts for fetchPostBySlug
+
+  return posts.map((post) => post.slug);
 }

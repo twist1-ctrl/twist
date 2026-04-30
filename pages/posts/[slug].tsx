@@ -275,12 +275,14 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
       };
     }
 
+    const revalidateSeconds = parseInt(process.env.NEXT_POST_REVALIDATE_SECONDS || '86400', 10);
+
     return {
       props: {
         post,
         ...(await serverSideTranslations(locale || 'en', ['common'])),
       },
-      revalidate: 60, // Revalidate every 60 seconds
+      revalidate: revalidateSeconds,
     };
   } catch (error) {
     console.error('Error fetching post:', error);

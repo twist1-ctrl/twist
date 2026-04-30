@@ -1,5 +1,6 @@
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
+import Script from 'next/script';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -11,6 +12,7 @@ import { useTranslation } from 'next-i18next';
 import { theme as baseTheme } from '../theme';
 import { COLORS, HOVER_COLORS } from '../constants/colors';
 import { useRouteChange } from '../hooks/useRouteChange';
+import { GA_ID, pageview } from '../services/analytics';
 import '../styles/globals.css';
 
 // Create theme with RTL/LTR support based on locale
@@ -39,11 +41,37 @@ function App({ Component, pageProps }: AppProps) {
     document.documentElement.lang = locale || 'he';
   }, [locale]);
 
+  useEffect(() => {
+    const handleRouteChange = (url: string) => pageview(url);
+    router.events.on('routeChangeComplete', handleRouteChange);
+    return () => router.events.off('routeChangeComplete', handleRouteChange);
+  }, [router.events]);
+
   return (
     <ThemeProvider theme={currentTheme}>
       <Head>
         <title>{t('meta.siteTitle')}</title>
       </Head>
+      {GA_ID && (
+        <>
+          <Script
+            strategy="afterInteractive"
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+          />
+          <Script
+            id="gtag-init"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA_ID}', { page_path: window.location.pathname });
+              `,
+            }}
+          />
+        </>
+      )}
       <CssBaseline />
       {isRouteChanging && (
         <Box
