@@ -13,12 +13,17 @@ export default function AppBar() {
   const theme = useTheme();
   const { t } = useTranslation('common');
 
-  // Highlight active route
-  const isActive = (path: string) => router.pathname === path;
+  // Highlight active route, including nested post pages.
+  const isActive = (path: string) => {
+    if (path === '/posts') {
+      return router.pathname === '/posts' || router.pathname.startsWith('/posts/');
+    }
+    return router.pathname === path;
+  };
 
   const navItems = [
-    { href: '/', label: t('navigation.signup') },
     { href: '/posts', label: t('navigation.posts') },
+    { href: '/signup', label: t('navigation.signup') },
     { href: '/contact', label: t('navigation.contact') },
   ];
 
@@ -96,7 +101,6 @@ export default function AppBar() {
             justifyContent: 'center',
             px: { xs: 1.25, sm: 1.5 },
             py: { xs: 0.6, sm: 0.75 },
-            bgcolor: '#ffffff',
           }}
         >
           <Box

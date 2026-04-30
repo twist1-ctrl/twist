@@ -1,4 +1,7 @@
 {
+  "meta": {
+    "siteTitle": "טוויסט"
+  },
   "home": {
     "slogen": "מגזין תוכן שובר שגרה"
   },
@@ -48,7 +51,14 @@
     "title": "פוסטים",
     "comingSoon": "בקרוב...",
     "allTags": "הכל",
-    "noPosts": "אין פוסטים עדיין"
+    "noPosts": "אין פוסטים עדיין",
+    "backToPosts": "חזרה לעמוד הפוסטים",
+    "exportPdf": "ייצוא PDF",
+    "exportPdfLoading": "מכין קובץ PDF...",
+    "downloadPdf": "הורדה"
+    ,
+    "copyPdfLink": "העתק קישור",
+    "linkCopied": "הקישור הועתק"
   },
   "contact": {
     "title": "צור קשר",

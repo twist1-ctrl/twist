@@ -1,44 +1,166 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
+import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
+import FileDownloadRoundedIcon from '@mui/icons-material/FileDownloadRounded';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { Box, Typography, Container, Divider } from '@mui/material';
-import Image from 'next/image';
+import { Box, Typography, Container, Divider, Button, CircularProgress } from '@mui/material';
 import Layout from '../../components/Layout';
-import contentfulClient from '../../services/contentful';
-import { BlogPostSkeleton, IPost } from '../../types/post';
+import { usePostDate } from '../../hooks/usePostDate';
+import { fetchAllPostSlugs, fetchPostBySlug } from '../../services/posts';
+import { IPost } from '../../types/post';
 
 interface PostPageProps {
   post: IPost;
 }
 
 export default function PostPage({ post }: PostPageProps) {
+  const router = useRouter();
   const { t } = useTranslation('common');
+  const { gregorianDate, hebrewDate } = usePostDate(post.publishedDate, router.locale);
+  const isHebrew = router.locale === 'he';
+  const backButtonIconProps = isHebrew
+    ? { startIcon: <ArrowForwardRoundedIcon fontSize="small" /> }
+    : { startIcon: <ArrowBackRoundedIcon fontSize="small" /> };
+  const [isDownloadingPdf, setIsDownloadingPdf] = useState(false);
+
+  const getPdfUrl = () => {
+    const locale = router.locale || router.defaultLocale || 'he';
+    const base = typeof window !== 'undefined' ? window.location.origin : '';
+    return `${base}/api/posts/${encodeURIComponent(post.slug)}/pdf?locale=${encodeURIComponent(locale)}`;
+  };
+
+  const handleDownloadContextMenu = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
+    try {
+      await navigator.clipboard.writeText(getPdfUrl());
+    } catch (error) {
+      console.error('Failed to copy PDF link:', error);
+    }
+  };
+
+  const handlePdfDownload = async () => {
+    if (isDownloadingPdf) {
+      return;
+    }
+
+    setIsDownloadingPdf(true);
+
+    try {
+      const locale = router.locale || router.defaultLocale || 'he';
+      const response = await fetch(getPdfUrl());
+
+      if (!response.ok) {
+        throw new Error(`Failed to download PDF: ${response.status}`);
+      }
+
+      const contentDisposition = response.headers.get('Content-Disposition');
+      let fileName = `${post.slug || 'post'}.pdf`;
+      if (contentDisposition) {
+        const utf8Match = contentDisposition.match(/filename\*=UTF-8''([^;]+)/i);
+        if (utf8Match) {
+          fileName = decodeURIComponent(utf8Match[1]);
+        } else {
+          const asciiMatch = contentDisposition.match(/filename="([^"]+)"/i);
+          if (asciiMatch) {
+            fileName = asciiMatch[1];
+          }
+        }
+      }
+
+      const pdfBlob = await response.blob();
+      const objectUrl = window.URL.createObjectURL(pdfBlob);
+      const downloadLink = document.createElement('a');
+      downloadLink.href = objectUrl;
+      downloadLink.download = fileName;
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      downloadLink.remove();
+      window.URL.revokeObjectURL(objectUrl);
+    } catch (error) {
+      console.error('Failed to download PDF:', error);
+    } finally {
+      setIsDownloadingPdf(false);
+    }
+  };
 
   return (
     <Layout>
       <Container maxWidth="md">
         <Box sx={{ py: 6 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3, direction: 'ltr' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap' }}>
+              <Button
+                variant="text"
+                onClick={handlePdfDownload}
+                onContextMenu={handleDownloadContextMenu}
+                disabled={isDownloadingPdf}
+                startIcon={!isHebrew ? (isDownloadingPdf ? <CircularProgress size={14} color="inherit" /> : <FileDownloadRoundedIcon fontSize="small" />) : undefined}
+                endIcon={isHebrew ? (isDownloadingPdf ? <CircularProgress size={14} color="inherit" /> : <FileDownloadRoundedIcon fontSize="small" />) : undefined}
+                sx={{
+                  gap: 1,
+                  px: 0,
+                  minWidth: 'auto',
+                  color: 'text.secondary',
+                  fontWeight: 600,
+                  '& .MuiButton-startIcon, & .MuiButton-endIcon': {
+                    margin: 0,
+                  },
+                  '&:hover': {
+                    bgcolor: 'transparent',
+                    color: 'text.primary',
+                  },
+                }}
+              >
+                {t('posts.downloadPdf')}
+              </Button>
+
+              <Button
+                variant="text"
+                onClick={() => router.push('/posts')}
+                dir={isHebrew ? 'rtl' : 'ltr'}
+                {...backButtonIconProps}
+                sx={{
+                  gap: 1,
+                  px: 0,
+                  minWidth: 'auto',
+                  color: 'text.secondary',
+                  fontWeight: 600,
+                  '& .MuiButton-startIcon, & .MuiButton-endIcon': {
+                    margin: 0,
+                  },
+                  '&:hover': {
+                    bgcolor: 'transparent',
+                    color: 'text.primary',
+                  },
+                }}
+              >
+                {t('posts.backToPosts')}
+              </Button>
+            </Box>
+
+            <Typography
+              variant="subtitle1"
+              color="text.secondary"
+              sx={{ fontWeight: 500, whiteSpace: 'nowrap', marginLeft: 'auto' }}
+            >
+              {gregorianDate}
+              {router.locale === 'he' && ` • ${hebrewDate}`}
+            </Typography>
+          </Box>
+
           {/* Post Title */}
           <Typography 
             variant="h2" 
             component="h1" 
             gutterBottom
-            sx={{ fontWeight: 'bold', mb: 2 }}
+            sx={{ fontWeight: 'bold', mb: 4 }}
           >
             {post.title}
-          </Typography>
-
-          {/* Published Date */}
-          <Typography 
-            variant="subtitle1" 
-            color="text.secondary" 
-            sx={{ mb: 4 }}
-          >
-            {new Date(post.publishedDate).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric'
-            })}
           </Typography>
 
           {/* Featured Image */}
@@ -66,18 +188,55 @@ export default function PostPage({ post }: PostPageProps) {
           <Divider sx={{ mb: 4 }} />
 
           {/* Post Content */}
-          <Typography 
-            variant="body1" 
-            component="div"
-            sx={{ 
+          <Box
+            sx={{
               lineHeight: 1.8,
               fontSize: '1.1rem',
-              whiteSpace: 'pre-wrap',
-              '& p': { mb: 2 }
+              '& p': { mb: 2 },
+              '& ul': { pl: 3, mb: 2, listStyleType: 'disc' },
+              '& ol': { pl: 3, mb: 2, listStyleType: 'decimal' },
+              '& li': { mb: 0.5 },
+              '& b, & strong': { fontWeight: 700 },
+              '& i, & em': { fontStyle: 'italic' },
+              '& u': { textDecoration: 'underline' },
+              '& h1, & h2, & h3, & h4, & h5, & h6': { fontWeight: 700, mt: 3, mb: 1 },
+              '& blockquote': {
+                borderLeft: '4px solid',
+                borderColor: 'primary.main',
+                pl: 2,
+                ml: 0,
+                my: 2,
+                color: 'text.secondary',
+              },
+              '& a': { color: 'primary.main', textDecoration: 'underline' },
             }}
           >
-            {post.content}
-          </Typography>
+            {post.rawContent
+              ? documentToReactComponents(post.rawContent)
+              : post.content}
+          </Box>
+
+          <Box sx={{ mt: 6, display: 'flex', justifyContent: 'center' }}>
+            <Button
+              variant="contained"
+              size="large"
+              onClick={() => router.push('/posts')}
+              dir={isHebrew ? 'rtl' : 'ltr'}
+              {...backButtonIconProps}
+              sx={{
+                gap: 1,
+                minWidth: 220,
+                borderRadius: '999px',
+                px: 3,
+                py: 1.25,
+                '& .MuiButton-startIcon, & .MuiButton-endIcon': {
+                  margin: 0,
+                },
+              }}
+            >
+              {t('posts.backToPosts')}
+            </Button>
+          </Box>
         </Box>
       </Container>
     </Layout>
@@ -86,27 +245,10 @@ export default function PostPage({ post }: PostPageProps) {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
-    // Fetch all blog posts to generate paths
-    const response = await contentfulClient.getEntries<BlogPostSkeleton>({
-      content_type: 'blogPost',
-    });
-
-    // Generate paths for each post
-    const paths = response.items.map((item) => {
-      // Generate slug from title if not provided
-      const slug = item.fields.slug || 
-        (item.fields.title as string)
-          .toLowerCase()
-          .replace(/[^\w\s-]/g, '')
-          .replace(/\s+/g, '-')
-          .replace(/-+/g, '-')
-          .trim() || 
-        item.sys.id; // Fallback to ID if slug is empty
-
-      return {
-        params: { slug: slug as string },
-      };
-    });
+    const slugs = await fetchAllPostSlugs();
+    const paths = slugs.map((slug) => ({
+      params: { slug },
+    }));
 
     return {
       paths,
@@ -125,69 +267,13 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
   const slug = params?.slug as string;
 
   try {
-    // Fetch the specific post by slug
-    const response: Awaited<ReturnType<typeof contentfulClient.getEntries<BlogPostSkeleton>>> = await contentfulClient.getEntries<BlogPostSkeleton>({
-      content_type: 'blogPost',
-      'fields.slug': slug,
-      limit: 1,
-    });
+    const post = await fetchPostBySlug(slug);
 
-    if (response.items.length === 0) {
+    if (!post) {
       return {
         notFound: true,
       };
     }
-
-    const item = response.items[0];
-
-    // Generate slug from title if not provided
-    const postSlug = item.fields.slug || 
-      (item.fields.title as string)
-        .toLowerCase()
-        .replace(/[^\w\s-]/g, '')
-        .replace(/\s+/g, '-')
-        .replace(/-+/g, '-')
-        .trim() ||
-      item.sys.id; // Fallback to ID if slug is empty
-
-    // Get the first image from relatedImages array
-    const relatedImages = item.fields.relatedImages;
-    const firstImage = relatedImages && relatedImages.length > 0 ? relatedImages[0] : null;
-    
-    const imageUrl = firstImage && 'fields' in firstImage && firstImage.fields?.file?.url 
-      ? `https:${firstImage.fields.file.url}` 
-      : '';
-    const imageAlt = firstImage && 'fields' in firstImage && firstImage.fields?.title 
-      ? firstImage.fields.title 
-      : item.fields.title;
-
-    // Convert RichText to plain text for content
-    const richTextContent = item.fields.postContent;
-    let contentText = '';
-    if (richTextContent?.content) {
-      contentText = richTextContent.content
-        .map((node: any) => {
-          if (node.nodeType === 'paragraph' && node.content) {
-            return node.content.map((c: any) => c.value || '').join('');
-          }
-          return '';
-        })
-        .join('\n\n');
-    }
-
-    // Transform to our IPost format
-    const post: IPost = {
-      id: item.sys.id,
-      title: item.fields.title as string,
-      slug: postSlug,
-      featuredImage: {
-        url: imageUrl,
-        alt: imageAlt as string,
-      },
-      content: contentText,
-      publishedDate: item.fields.publishDate as string,
-      ...(item.fields.category && { category: item.fields.category as string[] }),
-    };
 
     return {
       props: {

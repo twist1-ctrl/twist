@@ -10,6 +10,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@contentful/rich-text-html-renderer": "^17.2.2",
+    "@contentful/rich-text-react-renderer": "^16.2.1",
+    "@contentful/rich-text-types": "^17.2.7",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@hebcal/core": "^6.3.2",
@@ -22,6 +25,7 @@
     "i18next": "^23.16.8",
     "next": "^15.0.0",
     "next-i18next": "^15.4.3",
+    "puppeteer": "^24.42.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-i18next": "^14.1.3"
