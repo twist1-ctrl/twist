@@ -43,6 +43,8 @@ export default function SignupForm() {
   const [fieldsOpened, setFieldsOpened] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [consentChecked, setConsentChecked] = useState(false);
+  const [consentError, setConsentError] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     fullName: '',
@@ -72,8 +74,13 @@ export default function SignupForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!consentChecked) {
+      setConsentError(true);
+      return;
+    }
     setIsLoading(true);
     setError(null);
+    setConsentError(false);
 
     try {
       // Split full name: if only one word, it's firstName; otherwise last word is lastName
@@ -334,6 +341,49 @@ export default function SignupForm() {
             </div>
           </motion.div>
         )}
+
+        <motion.div
+          variants={formFieldVariants}
+          style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}
+        >
+          <label
+            style={{
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: '8px',
+              fontSize: '0.85rem',
+              color: consentError ? '#c7403a' : '#5b6670',
+              cursor: 'pointer',
+              lineHeight: 1.5,
+              textAlign: direction === 'rtl' ? 'right' : 'left',
+            }}
+          >
+            <input
+              type="checkbox"
+              checked={consentChecked}
+              onChange={(e) => {
+                setConsentChecked(e.target.checked);
+                if (e.target.checked) setConsentError(false);
+              }}
+              style={{ marginTop: '3px', accentColor: '#65a595', flexShrink: 0 }}
+            />
+            <span>
+              {t('signupForm.consent')}{' '}
+              <a href="/terms" target="_blank" rel="noopener noreferrer" style={{ color: '#65a595' }}>
+                {t('signupForm.consentTerms')}
+              </a>
+              {' '}{t('signupForm.consentAnd')}{' '}
+              <a href="/privacy" target="_blank" rel="noopener noreferrer" style={{ color: '#65a595' }}>
+                {t('signupForm.consentPrivacy')}
+              </a>
+            </span>
+          </label>
+          {consentError && (
+            <span style={{ fontSize: '0.78rem', color: '#c7403a' }}>
+              {t('signupForm.consentRequired')}
+            </span>
+          )}
+        </motion.div>
 
         <motion.small
           style={formStyles.trust}

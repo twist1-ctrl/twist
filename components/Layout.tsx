@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import { Container, Box } from '@mui/material';
 import AppBar from './AppBar';
 import CirclesDecoration from './CirclesDecoration';
+import Footer from './Footer';
 
 interface LayoutProps {
   children: ReactNode;
@@ -26,6 +27,7 @@ export default function Layout({ children, showCircles = true }: LayoutProps) {
       >
         {children}
       </Container>
+      <Footer />
     </Box>
   );
 }

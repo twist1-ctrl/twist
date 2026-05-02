@@ -71,10 +71,27 @@
     "actionPhone": "חייגו עכשיו",
     "actionWhatsapp": "פתחו וואטסאפ"
   },
+  "footer": {
+    "copyright": "© 2026 טוויסט. כל הזכויות שמורות.",
+    "terms": "תקנון",
+    "privacy": "מדיניות פרטיות",
+    "accessibility": "הצהרת נגישות"
+  },
+  "legal": {
+    "lastUpdated": "עודכן לאחרונה",
+    "privacyTitle": "מדיניות פרטיות",
+    "termsTitle": "תקנון ותנאי שימוש",
+    "accessibilityTitle": "הצהרת נגישות"
+  },
+  "signupForm.consent": "קראתי ואני מסכים/ה ל",
+  "signupForm.consentAnd": "ול",
+  "signupForm.consentTerms": "תנאי השימוש",
+  "signupForm.consentPrivacy": "מדיניות הפרטיות",
+  "signupForm.consentRequired": "יש לאשר את תנאי השימוש ומדיניות הפרטיות",
   "signupSuccess": {
     "title": "תודה על הרשמתך!",
     "message": "אנחנו שמחים שהצטרפת אלינו.\n\nחכה לגליון הקרוב.",
     "waitMessage": "תקבל את הניוזלטר השבועי בתיבת הדוא\"ל שלך.",
-    "button": "חזור לעמוד ההרשמה"
+    "button": "לעמוד הפוסטים"
   }
 }

@@ -60,7 +60,7 @@ export default function SignupSuccess() {
   }, []);
 
   const handleBackHome = () => {
-    window.location.href = '/';
+    router.push('/signup');
   };
 
   return (
