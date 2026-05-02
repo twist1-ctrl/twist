@@ -71,6 +71,23 @@
     "actionPhone": "Call Now",
     "actionWhatsapp": "Open WhatsApp"
   },
+  "footer": {
+    "copyright": "© 2026 TWIST. All rights reserved.",
+    "terms": "Terms of Use",
+    "privacy": "Privacy Policy",
+    "accessibility": "Accessibility"
+  },
+  "legal": {
+    "lastUpdated": "Last updated",
+    "privacyTitle": "Privacy Policy",
+    "termsTitle": "Terms of Use",
+    "accessibilityTitle": "Accessibility Statement"
+  },
+  "signupForm.consent": "I have read and agree to the",
+  "signupForm.consentAnd": "and",
+  "signupForm.consentTerms": "Terms of Use",
+  "signupForm.consentPrivacy": "Privacy Policy",
+  "signupForm.consentRequired": "You must accept the Terms of Use and Privacy Policy",
   "signupSuccess": {
     "title": "Thank You for Signing Up!",
     "message": "We're excited to have you join us.\n\nWait for the next issue of our magazine.",
